@@ -1,0 +1,29 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "import"
+  ],
+  "rules": {
+    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx"] }],
+    "react/forbid-prop-types": 0,
+    "linebreak-style": "off",
+    "quotes": [1, "double"]
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
+    }
+  },
+  "globals": {
+    "document": true,
+    "window": true
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "jest": true
+  }
+}
