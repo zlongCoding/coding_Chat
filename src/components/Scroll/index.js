@@ -7,7 +7,7 @@ import "./index.scss";
 class Scroll extends Component {
   static propTypes = {
     scrollbar: PropTypes.string.isRequired,
-    onScroll: PropTypes.func.isRequired,
+    // onScroll: PropTypes.func.isRequired,
     allowScroll: PropTypes.bool.isRequired,
     isToBottom: PropTypes.bool,
   };
@@ -29,7 +29,8 @@ class Scroll extends Component {
       if (!this.myRef.current) {
         return false;
       }
-      const { scrollbar, onScroll, allowScroll } = this.props;
+      // const { scrollbar, onScroll, allowScroll } = this.props;
+      const { scrollbar, allowScroll } = this.props;
       this.state.myScroll = new IScroll(this.myRef.current, {
         mouseWheel: true,
         probeType: 3,
@@ -44,11 +45,11 @@ class Scroll extends Component {
         e.preventDefault();
       };
       const { myScroll } = this.state;
-      myScroll.on("scroll", () => {
-        if (onScroll) {
-          onScroll(myScroll.y);
-        }
-      });
+      // myScroll.on("scroll", () => {
+      //   if (onScroll) {
+      //     onScroll(myScroll.y);
+      //   }
+      // });
 
       if (!allowScroll) {
         Event.on(this.myRef.current, "touchmove", this.stopTouchmove);

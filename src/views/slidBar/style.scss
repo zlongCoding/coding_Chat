@@ -1,0 +1,159 @@
+.panel {
+  position: relative;
+  width: 280px;
+  height: 100%;
+  float: left;
+  background: #2e3238;
+
+  header {
+    padding: 18px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    div {
+      display: flex;
+      align-items: center;
+    }
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 2px;
+      display: block;
+      cursor: pointer;
+      margin-right: 11px;
+    }
+
+    span {
+      display: inline-block;
+      font-weight: 400;
+      width: 156px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      word-wrap: normal;
+      color: #fff;
+      font-size: 18px;
+      vertical-align: top;
+      line-height: 31px;
+      text-decoration: none;
+    }
+  }
+
+  .search_bar {
+    position: relative;
+    width: 244px;
+    margin: 0 auto 6px;
+
+    i {
+      position: absolute;
+      z-index: 101;
+      top: 1px;
+      display: inline-block;
+      vertical-align: middle;
+      width: 30px;
+      height: 30px;
+      background: url(../../assets/webwx.png) no-repeat;
+      background-position: -60px -432px;
+      background-size: 487px 462px;
+    }
+
+    input {
+      width: 244px;
+      height: 32px;
+      line-height: 32px;
+      border: 0;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      background-color: #26292e;
+      color: #fff;
+      padding-left: 30px;
+      font-size: 12px;
+    }
+  }
+}
+
+.tabList {
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  padding-bottom: 4px;
+
+  &:after {
+    content: "";
+    position: absolute;
+    border-bottom: 1px solid #24272c;
+    height: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  li {
+    cursor: pointer;
+    text-align: center;
+    flex: 1;
+  }
+
+  i {
+    display: inline-block;
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+    background: url(../../assets/webwx.png) no-repeat;
+    background-size: 487px 462px;
+  }
+
+  li:nth-child(1),
+  li:nth-child(2) {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 7px;
+      right: 0;
+      width: 0;
+      height: 20px;
+      border-right: 1px solid #24272c;
+    }
+  }
+
+  .web_wechat_tab_chat {
+    background-position: -150px -96px;
+  }
+
+  .web_wechat_tab_public {
+    background-position: -376px -322px;
+  }
+
+  .web_wechat_tab_friends {
+    background-position: -220px -96px;
+  }
+
+  .web_wechat_tab_chat_h {
+    background-position: -185px -96px;
+  }
+
+  .web_wechat_tab_public_h {
+    background-position: -304px -281px;
+  }
+
+  .web_wechat_tab_friends_h {
+    background-position: -304px -246px;
+  }
+}
+
+.web_wechat_add {
+  display: inline-block;
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  background: url(../../assets/webwx.png) no-repeat;
+  background-position: -434px -398px;
+  -webkit-background-size: 487px 462px;
+  background-size: 487px 462px;
+}

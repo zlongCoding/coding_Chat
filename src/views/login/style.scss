@@ -1,30 +1,40 @@
-.login{
-    margin: 0 auto;
+.login {
     background: #fff;
-    box-shadow: 1, 1,1, red;
-    width: 350px;
-    height: 300px;
-    text-align: center;
-    border-radius: 5px;
-    animation:loginIn 2s;
-    animation-fill-mode: forwards;
-    margin-top: 400px;
-    h1{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    justify-content: center;
+    min-width: 1000px;
+    .loginPointer {
+        width: 350px;
+        height: 300px;
+        text-align: center;
+        border-radius: 5px;
+        animation: loginIn 2s;
+        animation-fill-mode: forwards;
+    }
+
+    h1 {
         font-size: 28px;
         padding: 20px 0;
     }
-    .textLine{
+
+    .textLine {
         display: flex;
         justify-content: space-between;
         align-items: center;
         font-size: 16px;
         color: #666;
-        margin-top:20px;
+        margin-top: 20px;
+
         div {
             display: block;
             width: 65px;
             text-align: right;
         }
+
         input {
             outline: none;
             border: 1px solid #d9d9d9;
@@ -35,7 +45,8 @@
             width: 285px;
         }
     }
-    button{
+
+    button {
         height: 40px;
         border-radius: 2px;
         background-color: #4391ff;
@@ -43,24 +54,32 @@
         color: #fff;
         width: 350px;
     }
-    .register{
+
+    .register {
         text-align: right;
-        margin-top:24px;
+        margin-top: 24px;
         margin-bottom: 24px;
         display: flex;
         justify-content: space-between;
-        span:first-child{
+
+        span:first-child {
             color: red;
         }
-        span:last-child{
+
+        span:last-child {
             text-decoration: underline;
             color: #4391ff;
             cursor: pointer;
         }
     }
 }
-@keyframes loginIn
-{
-    0%   { transform: scale(0, 0); }
-    100% { transform: scale(1, 1); }
+
+@keyframes loginIn {
+    0% {
+        transform: scale(0, 0);
+    }
+
+    100% {
+        transform: scale(1, 1);
+    }
 }

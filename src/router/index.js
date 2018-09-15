@@ -11,7 +11,7 @@ const propTypes = {
 
 const Router = ({ history }) => (
   <ConnectedRouter history={history}>
-    <div>
+    <div id="connectedRouter">
       {map(routes, (route, idx) => (
         <Route key={idx} {...route} />
       ))}

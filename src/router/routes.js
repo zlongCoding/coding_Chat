@@ -14,6 +14,12 @@ const AsyncLogin = Loadable({
   loader: () => import('views/login'),
   loading: () => null,
 });
+
+const AsyncChat = Loadable({
+  loader: () =>
+    import('views/chat'),
+  loading: () => null,
+});
 const routes = [{
   path: '/',
   exact: true,
@@ -24,6 +30,9 @@ const routes = [{
 }, {
   path: '/login',
   component: AsyncLogin,
+}, {
+  path: '/wechat',
+  component: AsyncChat,
 }];
 
 export default routes;

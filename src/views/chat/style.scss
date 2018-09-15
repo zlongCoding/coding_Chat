@@ -1,0 +1,42 @@
+#weChat{
+      background: url(../../assets/wechat.jpg) no-repeat 50%;
+      background-size: cover;
+      height: 100%;
+      width: 100%;
+}
+#weChat_content {
+  height: 80%;
+  min-height: 600px;
+  padding-top: 100px;
+  -webkit-transition: padding .3s linear;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.main_inner {
+  max-width: 1000px;
+  min-width: 800px;
+  height: 100%;
+  margin: 0 auto;
+  border-radius: 3px;
+  overflow: hidden;
+  display: flex;
+}
+.reminder {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: #e3e3e3;
+}
+@media (max-height: 800px),
+(max-width:1000px) {
+  #weChat_content {
+    padding-top: 0;
+    height: 100%
+  }
+
+  .reminder {
+    display: none
+  }
+}
