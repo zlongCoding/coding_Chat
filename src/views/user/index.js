@@ -1,69 +1,60 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import logo from "assets/logo.svg";
-import homeAction from "store/home/action";
-import action from "store/user/action";
+import Api from "utils/api";
 import "./style.scss";
 
 const propTypes = {
-  message: PropTypes.string.isRequired,
-  user: PropTypes.string.isRequired,
-  getMessage: PropTypes.func.isRequired,
-  getUser: PropTypes.func.isRequired,
+
 };
 
 class User extends Component {
-  congratulation = "Congratulation!";
-
-  componentDidMount() {
-    const { getMessage, getUser } = this.props;
-    getMessage();
-    getUser();
+  constructor(props){
+    super(props)
+    this.state={
+      qrcode: ""
+    }
   }
-
+  componentDidMount() {
+     Api.get({
+       url: "/wechat/qrcode"
+     }).then(res => {
+       console.log(res.data)
+       this.setState({
+         qrcode: res.data
+       })
+     })
+     
+  }
+  renderQrcode() {
+    if (this.state.qrcode) {
+       
+    }
+  }
   render() {
-    const { message, user } = this.props;
+    const { qrcode } = this.state
     return (
-      <div className="user">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <Link to="/">
-            <h1 className="App-title">
-              Welcome to React
-            </h1>
-          </Link>
-        </header>
-        <p className="App-intro">
-          To get started, edit
-          <code className="App-code">
-            src/views/user/index.js
-          </code>
-          and save to reload.
-        </p>
-        <p className="App-intro">
-          {message}
-        </p>
-        <p className="App-intro">
-          {user}
-        </p>
-        <p className="App-intro">
-          {this.congratulation}
-        </p>
+      <div className="user_qrcode">
+        {
+          qrcode ? (
+            <section>
+          <img src={qrcode}/>
+          <div>使用手机微信扫码登录</div>
+          <p>网页版微信需要配合手机使用</p>
+        </section>
+          ) : (
+            <div>加载中。。。。</div>
+          )
+        }
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  user: state.user.user,
-  message: state.home.message,
 });
 
 const mapDispatchToProps = {
-  getUser: action.getUser,
-  getMessage: homeAction.getMessage,
 };
 
 User.propTypes = propTypes;

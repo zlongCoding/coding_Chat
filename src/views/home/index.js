@@ -1,58 +1,42 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import logo from "assets/logo.svg";
-import action from "store/home/action";
 import "./style.scss";
+import User from "../user";
+import Chat from "../chat"
+import Api from "utils/api";
 
 const propTypes = {
-  message: PropTypes.string.isRequired,
-  getMessage: PropTypes.func.isRequired,
 };
 
 class Home extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      userState: true
+    }
+  }
   componentDidMount() {
-    const { getMessage } = this.props;
-    getMessage();
+  //  Api.get({
+  //    url: "/wechat/qrcode"
+  //  })
   }
 
   render() {
-    const { message } = this.props;
-
+    let { userState } = this.state
     return (
-      <div className="home">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <Link to="/">
-            <h1 className="App-title">
-              Welcome to React
-            </h1>
-          </Link>
-        </header>
-        <p className="App-intro">
-          To get started, edit
-          <code className="App-code">
-            src/views/home/index.js
-          </code>
-          and save to reload.
-        </p>
-        <Link to="/user" href="/user">
-          <p className="App-intro">
-            {message}
-          </p>
-        </Link>
+       <div id="weChat">
+       {
+         userState ? <User /> : <Chat />
+       }
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  message: state.home.message,
 });
 
 const mapDispatchToProps = {
-  getMessage: action.getMessage,
 };
 
 Home.propTypes = propTypes;

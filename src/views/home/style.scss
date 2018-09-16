@@ -1,5 +1,12 @@
 @import 'styles/helpers';
 
+#weChat {
+  background: url(../../assets/wechat.jpg) no-repeat 50%;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
 .home {
   text-align: center;
 

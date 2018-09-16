@@ -1,48 +1,36 @@
 import axios from 'axios';
+import Config from "config";
 
 const defaultHeader = {
-  Accept: 'application/json',
+  "Accept": 'application/json',
   'Content-Type': 'application/json',
 };
-
 const instance = axios.create({
   timeout: 5000,
   headers: defaultHeader,
   withCredentials: true,
+  baseURL: Config.baseURL,
 });
 
-const returnJson = response => response.data;
-
-const standardResponse = (response) => {
-  if (response.status < 400) {
-    return returnJson(response);
+export default {
+  get(options) {
+    return new Promise((resolve, reject) => {
+      instance.get(options.url, {
+          params: options.params
+        }).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  post(options) {
+    return new Promise((resolve, reject) => {
+      instance.post(options.url, options.data).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
   }
-  return Promise.reject(returnJson(response));
-};
-
-const api = () => {
-  let opt = {
-    instance,
-  };
-
-  return {
-    setOptions: (options) => {
-      opt = {
-        ...opt,
-        ...options,
-      };
-    },
-
-    get: (url, query) => (
-      opt.instance.get(url, {
-        params: query,
-      }).then(standardResponse)
-    ),
-
-    post: (url, data) => (
-      opt.instance.post(url, data).then(standardResponse)
-    ),
-  };
-};
-
-export default api();
+}

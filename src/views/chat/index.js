@@ -18,7 +18,7 @@ class Wechat extends Component {
   }
   render() {
     return(
-      <div id="weChat">
+      
         <div id="weChat_content">
            <div className="main_inner">
              <SlidBar />
@@ -26,7 +26,7 @@ class Wechat extends Component {
            </div>
            <p className="reminder">纯属</p>
         </div>
-      </div>
+      
     )
   }
 }

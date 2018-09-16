@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import "./style.scss";
 import action from "store/action";
+import Api from "utils/api";
 
 const propTypes = {
   isLogin: PropTypes.string.isRequired,
@@ -33,9 +34,42 @@ class Login extends Component {
   }
 
   submit() {
-    const { name, password } = this.state;
+    const { name, password, codeMessage } = this.state;
     console.log(name);
     console.log(password);
+    if (codeMessage === "登陆") {
+      Api.post({
+        url: "/account/login",
+        data: {
+          username: name,
+          password: password
+        }
+      }).then(res => {
+        if (res.data.code === 200) {
+          this.props.history.push('/')
+        } else {
+          this.setState({
+            error: res.data.msg
+          })
+        }
+      })
+    } else {
+      Api.post({
+        url: "/account/register",
+        data: {
+          username: name,
+          password: password
+        }
+      }).then(res => {
+        if (res.data.code === 200) {
+          this.props.history.push('/')
+        } else {
+          this.setState({
+            error: res.data.msg
+          })
+        }
+      })
+    }
   }
 
   code() {
