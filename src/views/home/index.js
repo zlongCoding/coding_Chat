@@ -14,13 +14,24 @@ class Home extends Component {
     this.state = {
       userState: true
     }
+   this._isMounted = true;
+
   }
   componentDidMount() {
-  //  Api.get({
-  //    url: "/wechat/qrcode"
-  //  })
+    console.log(this._isMounted)
+    // Api.get({
+    //   url: "/account"
+    // }).then(res => {
+    //   console.log(res.data.msg)
+    //   if (this._isMounted) {
+    //   this.setState({
+    //     userState: false
+    //   })
+    // }
+    // })
   }
-
+  componentWillUnmount() {
+  }
   render() {
     let { userState } = this.state
     return (
