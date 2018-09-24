@@ -1,14 +1,14 @@
 import createReducer from 'utils/createReducer';
 
 const defaultState = () => ({
-  message: '',
+  friendList: [],
 });
 
 const getMessageSuccess = (state, action) => ({
   ...state,
-  message: action.payload.data,
+  friendList: action.payload.data,
 });
 
 export default createReducer(defaultState, {
-  HOME_GET_MESSAGE_SUCCESS: getMessageSuccess,
+  FRIENDLIST_SUCCESS: getMessageSuccess,
 });

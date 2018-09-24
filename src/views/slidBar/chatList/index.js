@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import action from "store/chatBar/action";
+import headerAction from "../../chatContent/header/action";
 import Scroll from "components/Scroll";
 import "./index.scss";
 
 const propTypes = {
-  // message: PropTypes.number.isRequired,
+  chatList: PropTypes.array.isRequired,
 };
 
 class ChatList extends Component {
@@ -16,7 +16,7 @@ class ChatList extends Component {
     console.log(message);
     this.state = {
       chatList: [1, 2, 3, 4,5,6,7,78,9,6,4,43,,23,9,121,2],
-      changeIndex: 0
+      changeIndex: null
     }
   }
 
@@ -25,14 +25,16 @@ class ChatList extends Component {
     // console.log(message);
   }
   selectChatList(item, index) {
-    console.log(index)
     this.setState({
       changeIndex: index
     })
+    let { setWXCHAT } = this.props
+    setWXCHAT(item)
   }
 
   render() {
-    let { chatList, changeIndex } = this.state
+    let { changeIndex } = this.state
+    let { chatList } = this.props
     return (
       <div className="chatList">
         <Scroll allowScroll={false} scrollbar="custom">
@@ -42,14 +44,14 @@ class ChatList extends Component {
 					    		return (
 					    			<li key={index} onClick={() => {this.selectChatList(item, index)}} className={index === changeIndex ? "chat_item_active" : ""}>
                       <section>
-                        <img className="imgTitle" src={item.user||"https://ps.ssl.qhimg.com/t01531c2d8bd3dbe644.jpg"}/>
+                        <img className="imgTitle" src={'https://wx2.qq.com' + item.HeadImgUrl||"https://ps.ssl.qhimg.com/t01531c2d8bd3dbe644.jpg"}/>
                         <div className="msgDiv">
-                          <p className="msgName">fafafa</p>
-                          <p className="msgP">我没法说麻烦吗</p>
+                          <p className="msgName">{item.NickName}</p>
+                          <p className="msgP">{item.MMDigest}</p>
                         </div>
                       </section>
                       <section>
-                        <p>2:11</p>
+                        <p>{item.time}</p>
                       </section>
 							      </li>
 					    		);
@@ -63,11 +65,11 @@ class ChatList extends Component {
 }
 
 const mapStateToProps = state => ({
-  // _id_list: state.chatBar.listIndex,
+  chatList: state.chatList.chatList,
 });
 
 const mapDispatchToProps = {
-  // getIndex: action.getIndex,
+  setWXCHAT: headerAction.setWXCHAT,
 };
 
 ChatList.propTypes = propTypes;

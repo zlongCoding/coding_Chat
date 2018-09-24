@@ -1,0 +1,36 @@
+.chat_header_name {
+  position: relative;
+  padding: 10px 0;
+  margin: 0 19px;
+  border-bottom: 1px solid #d6d6d6;
+  background-color: #eee;
+  z-index: 1024;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+
+  .chat_choose_name {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    text-decoration: none;
+    color: #000;
+    font-weight: 400;
+    margin-right: 4px;
+  }
+
+  .web_wechat_down_icon {
+    width: 10px;
+    height: 10px;
+    background: url(../../../assets/webwx.png) no-repeat;
+    background-position: -477px -65px;
+    -webkit-background-size: 487px 462px;
+    background-size: 487px 462px;
+    display: inline-block;
+  }
+}

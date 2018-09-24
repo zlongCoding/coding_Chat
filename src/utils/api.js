@@ -6,7 +6,7 @@ const defaultHeader = {
   'Content-Type': 'application/json',
 };
 const instance = axios.create({
-  timeout: 5000,
+  // timeout: 10000,
   headers: defaultHeader,
   withCredentials: true,
   baseURL: Config.baseURL,
@@ -18,18 +18,18 @@ export default {
       instance.get(options.url, {
           params: options.params
         }).then(res => {
-        resolve(res)
+        resolve(res.data)
       }).catch(err => {
-        reject(err)
+        reject(err.data)
       })
     })
   },
   post(options) {
     return new Promise((resolve, reject) => {
       instance.post(options.url, options.data).then(res => {
-        resolve(res)
+        resolve(res.data)
       }).catch(err => {
-        reject(err)
+        reject(err.data)
       })
     })
   }

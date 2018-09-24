@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import action from "store/home/action";
+// import action from "store/home/action";
 import "./style.scss";
-
+import Header from "../header"
 const propTypes = {
 };
 
@@ -15,10 +15,7 @@ class Content extends Component {
   render() {
     return (
       <div className="chat_content">
-        <header className="chat_header_name">
-          <a className="chat_choose_name">发发神经了疯狂撒娇</a>
-          <i className="web_wechat_down_icon"></i>
-        </header>
+        <Header />
         <section id="chat_content_msglist">
            <ul>
              <li>

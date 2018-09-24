@@ -3,36 +3,25 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Api from "utils/api";
 import "./style.scss";
+// import action from "../home/action";
+// import chatAction from "../slidBar/chatList/action"
 
 const propTypes = {
-
+  
 };
 
 class User extends Component {
   constructor(props){
     super(props)
-    this.state={
-      qrcode: ""
-    }
+    // this.state={
+    //   qrcode: ""
+    // }
   }
   componentDidMount() {
-     Api.get({
-       url: "/wechat/qrcode"
-     }).then(res => {
-       console.log(res.data)
-       this.setState({
-         qrcode: res.data
-       })
-     })
-     
-  }
-  renderQrcode() {
-    if (this.state.qrcode) {
-       
-    }
+    //  this.checklogin()
   }
   render() {
-    const { qrcode } = this.state
+    const { qrcode } = this.props
     return (
       <div className="user_qrcode">
         {
@@ -55,6 +44,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  
 };
 
 User.propTypes = propTypes;

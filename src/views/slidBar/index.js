@@ -9,7 +9,7 @@ import Article from "./article";
 import "./style.scss";
 
 const propTypes = {
-
+  wechatAccout: PropTypes.object.isRequired,
 }
 
 class SlidBar extends Component {
@@ -46,12 +46,13 @@ class SlidBar extends Component {
   render() {
     let user = {}
     let { tab, selectIndex } = this.state
+    let { wechatAccout } = this.props
     return (
       <section className="panel">
         <header>
           <div>
-            <img className="avatar" src={(user.img||require("./images/Bin.jpg"))}/>
-            <span className="nickname">{user.name || '发生法萨芬的方式'}</span>
+            <img className="avatar" src={('https://wx2.qq.com' + wechatAccout.HeadImgUrl ||require("./images/Bin.jpg"))}/>
+            <span className="nickname">{wechatAccout.NickName || '发生法萨芬的方式'}</span>
           </div>
           <a href="javascript:;"><i className="web_wechat_add"></i></a>
         </header>
@@ -77,7 +78,7 @@ class SlidBar extends Component {
 }
 
 const mapStateToProps = state => ({
-  // message: state.home.message,
+  wechatAccout: state.home.wechatAccout,
 });
 
 const mapDispatchToProps = {

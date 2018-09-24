@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import "./style.scss";
-import action from "store/action";
+import action from "./action";
 import Api from "utils/api";
 
 const propTypes = {
@@ -45,7 +45,7 @@ class Login extends Component {
           password: password
         }
       }).then(res => {
-        if (res.data.code === 200) {
+        if (res.code === 200) {
           this.props.history.push('/')
         } else {
           this.setState({
@@ -61,11 +61,11 @@ class Login extends Component {
           password: password
         }
       }).then(res => {
-        if (res.data.code === 200) {
+        if (res.code === 200) {
           this.props.history.push('/')
         } else {
           this.setState({
-            error: res.data.msg
+            error: res.msg
           })
         }
       })
