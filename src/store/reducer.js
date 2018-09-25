@@ -1,14 +1,16 @@
 import createReducer from 'utils/createReducer';
 
 const defaultState = () => ({
-  isLogin: '',
+  isLogin: false,
+  user: {},
 });
 
 const getLoginState = (state, action) => ({
   ...state,
-  isLogin: action.payload.data,
+  isLogin: false,
+  user: {}
 });
 
 export default createReducer(defaultState, {
-  USER_GET_USERS_SUCCESS: getLoginState,
+  USER_SET_USER_SUCCESS: getLoginState,
 });

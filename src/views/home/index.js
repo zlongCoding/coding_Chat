@@ -81,6 +81,15 @@ class Home extends Component {
     }).then(res => {
       console.log(res)
         getWeChatAccount(res.User)
+        for (let i = 0; i < res.ContactList.length ; i++ ) {
+          this.getImg('https://wx2.qq.com' + res.ContactList[i].HeadImgUrl, i)
+        }
+        this.getImg('https://wx2.qq.com' + res.ContactList[0].HeadImgUrl, "one")
+        Api.get({
+          method: 'GET',
+          url: 'https://wx2.qq.com' + res.ContactList[0].HeadImgUrl,
+          // responseType: 'arraybuffer'
+        })
         dispatchChatlist(res.ContactList)
     })
   }
@@ -98,12 +107,12 @@ class Home extends Component {
   }
 
 
-  getImg(parmas) {
+  getImg(imgUrl, title) {
     Api.get({
       url: "/wechat/img",
       params: {
-        img: parmas.HeadImgUrl,
-        title: parmas.UserName
+        img: imgUrl,
+        title: title
       }
     }).then(res => {
       console.log(res)

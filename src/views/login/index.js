@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import "./style.scss";
-import action from "./action";
+import action from "store/action";
 import Api from "utils/api";
 
 const propTypes = {
-  isLogin: PropTypes.string.isRequired,
-  Logins: PropTypes.func.isRequired,
+  // user: PropTypes.object.isRequired,
+  // Login: PropTypes.func.isRequired,
 };
 
 class Login extends Component {
@@ -22,8 +22,9 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    const { Logins } = this.props;
-    Logins();
+    const { setUser, user } = this.props;
+    // setUser();
+    console.log(user)
   }
 
   setValue(e) {
@@ -86,7 +87,7 @@ class Login extends Component {
   }
 
   render() {
-    const { isLogin } = this.props;
+    // const { isLogin } = this.props;
     const { error, codeMessage } = this.state;
     return (
       <div className="login">
@@ -114,11 +115,11 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLogin: state.app.isLogin,
+  user: state.app.user,
 });
 
 const mapDispatchToProps = {
-  Logins: action.Login,
+  Login: action.Login,
 };
 
 Login.propTypes = propTypes;
