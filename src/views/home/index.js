@@ -11,6 +11,7 @@ import friendAction from "../slidBar/friendList/action"
 
 
 const propTypes = {
+  chatList: PropTypes.array.isRequired,
   wechatAccout: PropTypes.object.isRequired,
   getWeChatAccount: PropTypes.func.isRequired,
   dispatchChatlist: PropTypes.func.isRequired,
@@ -81,7 +82,34 @@ class Home extends Component {
     }).then(res => {
       console.log(res)
         getWeChatAccount(res.User)
-        dispatchChatlist(res.ContactList)
+        this.getImg(res.User)
+        // dispatchChatlist(res.ContactList)
+        let arr = [...res.ContactList]
+        // let {
+        //   chatList
+        // } = this.props
+        console.log(arr)
+        arr.forEach((item, index, array) => {
+          console.log(item)
+          this.getImgs(item, index, array)
+        })
+        dispatchChatlist(arr)
+    })
+  }
+  getImgs(parmas, index, array) {
+    Api.get({
+      url: "/wechat/avator",
+      params: {
+        img: parmas.HeadImgUrl,
+        title: parmas.UserName
+      }
+    }).then(res => {
+      let {
+        chatList,
+        dispatchChatlist
+      } = this.props
+      array[index].HeadImgUrl = 'data:image/jpeg;base64,' + res
+      
     })
   }
 
@@ -100,13 +128,18 @@ class Home extends Component {
 
   getImg(parmas) {
     Api.get({
-      url: "/wechat/img",
+      url: "/wechat/avator",
       params: {
         img: parmas.HeadImgUrl,
         title: parmas.UserName
       }
     }).then(res => {
-      console.log(res)
+      let {
+        wechatAccout, getWeChatAccount
+      } = this.props
+      let Obj = Object.assign({}, wechatAccout)
+      Obj.HeadImgUrl = 'data:image/jpeg;base64,' + res
+      getWeChatAccount(Object.assign({}, Obj))
     })
   }
 
@@ -127,6 +160,7 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
   wechatAccout: state.home.wechatAccout,
+  chatList: state.chatList.chatList,
 });
 
 const mapDispatchToProps = {

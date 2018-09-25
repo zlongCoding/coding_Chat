@@ -51,7 +51,7 @@ class SlidBar extends Component {
       <section className="panel">
         <header>
           <div>
-            <img className="avatar" src={('https://wx2.qq.com' + wechatAccout.HeadImgUrl ||require("./images/Bin.jpg"))}/>
+            <img className="avatar" src={(wechatAccout.HeadImgUrl ||require("./images/Bin.jpg"))}/>
             <span className="nickname">{wechatAccout.NickName || '发生法萨芬的方式'}</span>
           </div>
           <a href="javascript:;"><i className="web_wechat_add"></i></a>
