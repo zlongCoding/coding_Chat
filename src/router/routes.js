@@ -1,6 +1,6 @@
 import Loadable from 'react-loadable';
 
-const AsyncHome = Loadable({
+const BasicLayout = Loadable({
   loader: () => import('views/home'),
   loading: () => null,
 });
@@ -14,7 +14,7 @@ const AsyncLogin = Loadable({
 const routes = [{
   path: '/',
   exact: true,
-  component: AsyncHome,
+  component: BasicLayout,
 }, {
   path: '/login',
   component: AsyncLogin,

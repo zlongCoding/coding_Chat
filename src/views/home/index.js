@@ -93,6 +93,7 @@ class Home extends Component {
           console.log(item)
           this.getImgs(item, index, array)
         })
+        
         dispatchChatlist(arr)
     })
   }

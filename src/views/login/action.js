@@ -1,7 +1,7 @@
 import createAsyncAction from 'utils/createAsyncAction';
 
-function getUser(data) {
-  return createAsyncAction('USER_GET_USER', () => (
+function setUser(data) {
+  return createAsyncAction('USER_SET_USER', () => (
     Promise.resolve({
       data: data,
     })
@@ -9,5 +9,5 @@ function getUser(data) {
 }
 
 export default {
-  getUser,
+  setUser,
 };

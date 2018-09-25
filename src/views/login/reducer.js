@@ -1,7 +1,7 @@
 import createReducer from 'utils/createReducer';
 
 const defaultState = () => ({
-  user: '',
+  user: {},
 });
 
 const getUserSuccess = (state, action) => ({
@@ -10,5 +10,5 @@ const getUserSuccess = (state, action) => ({
 });
 
 export default createReducer(defaultState, {
-  USER_GET_USER_SUCCESS: getUserSuccess,
+  USER_SET_USER_SUCCESS: getUserSuccess,
 });

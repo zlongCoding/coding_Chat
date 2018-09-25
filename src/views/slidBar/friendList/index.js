@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import action from "store/chatBar/action";
+// import action from "store/chatBar/action";
 import Scroll from "components/Scroll";
 import "./index.scss";
 
