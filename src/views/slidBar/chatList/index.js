@@ -1,25 +1,34 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import headerAction from "../../chatContent/header/action";
 import Scroll from "components/Scroll";
+import headerAction from "../../chatContent/header/action";
+import chatAction from "./action";
 import "./index.scss";
 
 const propTypes = {
   chatList: PropTypes.array.isRequired,
+  getWeChatList: PropTypes.func.isRequired,
+  setWXCHAT: PropTypes.func.isRequired,
 };
 
 class ChatList extends Component {
   constructor(props) {
     super(props);
-    const { chatList } = this.props;
-    console.log(chatList);
+    const { chatList, getWeChatList } = this.props;
+    chatList.forEach((value, index) => {
+      getWeChatList(value, index);
+    });
     this.state = {
-      changeIndex: null
-    }
+      changeIndex: null,
+    };
+  }
+  componentWillUnmount() {
+    return false
   }
 
   componentDidMount() {
+    console.log(1111111111)
     // let { chatList } = this.props
     // console.log(chatList)
     // chatList.forEach((item, index) => {
@@ -28,60 +37,41 @@ class ChatList extends Component {
     // })
 
   }
-  getImg(parmas, index) {
-    Api.get({
-      url: "/wechat/avator",
-      params: {
-        img: parmas.HeadImgUrl,
-        title: parmas.UserName
-      }
-    }).then(res => {
-      let {
-        chatList,
-        dispatchChatlist
-      } = this.props
-      let Obj = [...chatList]
-      Obj[index].HeadImgUrl = 'data:image/jpeg;base64,' + res
-      dispatchChatlist(obj)
-    })
-  }
 
   selectChatList(item, index) {
     this.setState({
-      changeIndex: index
-    })
-    let { setWXCHAT } = this.props
-    setWXCHAT(item)
+      changeIndex: index,
+    });
+    const { setWXCHAT } = this.props;
+    setWXCHAT(item);
   }
 
   render() {
-    let { changeIndex } = this.state
-    let { chatList } = this.props
-    console.log(chatList)
+    const { changeIndex } = this.state;
+    const { chatList } = this.props;
     return (
       <div className="chatList">
         <Scroll allowScroll={false} scrollbar="custom">
-					    <ul>
-					    	{
-					    	chatList.map((item, index) => {
-					    		return (
-					    			<li key={index} onClick={() => {this.selectChatList(item, index)}} className={index === changeIndex ? "chat_item_active" : ""}>
-                      <section>
-                        <img className="imgTitle" src={item.HeadImgUrl}/>
-                        <div className="msgDiv">
-                          <p className="msgName">{item.NickName}</p>
-                          <p className="msgP">{item.MMDigest}</p>
-                        </div>
-                      </section>
-                      <section>
-                        <p>{item.time}</p>
-                      </section>
-							      </li>
-					    		);
-					    	})
-					    	}
-					    </ul>
-					</Scroll>
+          <ul>
+            {chatList.map((item, index) => { 
+              return (
+                <li key={index} onClick={() => {this.selectChatList(item, index)}} className={index === changeIndex ? "chat_item_active" : ""}>
+                  <section>
+                    <img className="imgTitle" src={item.HeadImgUrl} />
+                    <div className="msgDiv">
+                      <p className="msgName">{item.NickName}</p>
+                      <p className="msgP">{item.MMDigest}</p>
+                    </div>
+                  </section>
+                  <section>
+                    <p>{item.time}</p>
+                  </section>
+							  </li>
+					    	);
+					    })
+					  }
+					</ul>
+				</Scroll>
       </div>
     );
   }
@@ -93,6 +83,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   setWXCHAT: headerAction.setWXCHAT,
+  getWeChatList: chatAction.getWeChatList,
 };
 
 ChatList.propTypes = propTypes;

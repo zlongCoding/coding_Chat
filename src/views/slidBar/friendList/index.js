@@ -1,73 +1,72 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-// import action from "store/chatBar/action";
 import Scroll from "components/Scroll";
+import headerAction from "../../chatContent/header/action";
+import action from "./action";
 import "./index.scss";
 
 const propTypes = {
-  // message: PropTypes.number.isRequired,
+  friendList: PropTypes.array.isRequired,
+  getWeFreindList: PropTypes.func.isRequired,
+  setWXCHAT: PropTypes.func.isRequired,
 };
 
 class FriendList extends Component {
   constructor(props) {
     super(props);
-    const { message } = this.props;
-    console.log(message);
+    const { friendList, getWeFreindList } = this.props;
+    console.log(friendList);
+    friendList.forEach((value, index) => {
+      getWeFreindList(value, index, "FRIENDLIST_LOAD");
+    });
     this.state = {
-      friendList: [1, 2, 3, 4,5,6,7,78,9,6,4,43,,23,9,121,121,423,21,121,2121,2],
-      changeIndex: 0
-    }
+      changeIndex: null,
+    };
   }
 
-  componentDidMount() {
-    // const { message } = this.props;
-    // console.log(message);
-  }
   selectFriendList(item, index) {
-    console.log(index)
     this.setState({
-      changeIndex: index
-    })
+      changeIndex: index,
+    });
+    const { setWXCHAT } = this.props;
+    setWXCHAT(item);
   }
 
   render() {
-    let { friendList, changeIndex } = this.state
+    const { changeIndex } = this.state;
+    const { friendList } = this.props;
     return (
       <div className="friendList">
         <Scroll allowScroll={false} scrollbar="custom">
-					    <ul>
-					    	{
-					    	friendList.map((item, index) => {
-					    		return (
-                    <li key={index} className={index === changeIndex ? "friend_list_active" : ""}>
-                      {
-                         item > 5 ? (
-                           <div className="friend" onClick={() => {this.selectFriendList(item, index)}}>
-                             <img className="imgTitle" src={item.user||"https://ps.ssl.qhimg.com/t01531c2d8bd3dbe644.jpg"}/>
-                             <h4 className="nickname">法法发顺丰分散</h4>
-                           </div>
-                         ) : (
-                           <div className="contact_title">A</div>
-                         )
-                      }
-                    </li>
-					    		);
-					    	})
-					    	}
-					    </ul>
-					</Scroll>
+          <ul>
+            {friendList.map((item, index) => {
+              return (
+                <li key={index} className={index === changeIndex ? "friend_list_active" : ""}>
+                  <div className="friend" onClick={() => {this.selectFriendList(item, index)}}>
+                    <img className="imgTitle" src={item.HeadImgUrl}/>
+                      <h4 className="nickname">{item.NickName}</h4>
+                    </div>
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </Scroll>
       </div>
     );
   }
 }
-
+//   : (
+//    <div className="contact_title">A</div>
+//  )
 const mapStateToProps = state => ({
-  // _id_list: state.chatBar.listIndex,
+  friendList: state.friendList.friendList,
 });
 
 const mapDispatchToProps = {
-  // getIndex: action.getIndex,
+  getWeFreindList: action.getWeFreindList,
+  setWXCHAT: headerAction.setWXCHAT,
 };
 
 FriendList.propTypes = propTypes;

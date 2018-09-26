@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import SlidBar from "../slidBar";
 import ChatContent from "../chatContent";
@@ -9,28 +9,26 @@ import ChatContent from "../chatContent";
 import "./style.scss";
 
 const propTypes = {
-
-}
+};
 
 class Wechat extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
+
   render() {
-    return(
-      
-        <div id="weChat_content">
-           <div className="main_inner">
-             <SlidBar />
-             <ChatContent />
-           </div>
-           <p className="reminder">纯属</p>
+    return (
+      <div id="weChat_content">
+        <div className="main_inner">
+          <SlidBar />
+          <ChatContent />
         </div>
-      
-    )
+        <p className="reminder">纯属</p>
+      </div>
+    );
   }
 }
-
 const mapStateToProps = state => ({
   // message: state.home.message,
 });

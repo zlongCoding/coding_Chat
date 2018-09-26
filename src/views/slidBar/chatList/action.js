@@ -1,25 +1,33 @@
-import createAsyncAction from 'utils/createAsyncAction';
 import Api from "utils/api";
 
-function getWeChatList() {
-  return createAsyncAction('CHATLIST', () => (
+function getWeChatList(data, index) {
+  return (dispatch) => {
     Api.get({
-      url: "/wechat/account"
-    }).then(res => {
-      console.log(res)
-    })
-  ));
+      url: "/wechat/avator",
+      params: {
+        img: data.HeadImgUrl,
+        title: data.UserName,
+      },
+    }).then((res) => {
+      dispatch({
+        type: "CHATLIST_LOAD",
+        index,
+        data: `data:image/jpeg;base64, ${res}`,
+      });
+    });
+  };
 }
 
 function dispatchChatlist(data) {
-  return createAsyncAction('CHATLIST', () => (
-    Promise.resolve({
-      data: data,
-    })
-  ));
+  return (dispatch) => {
+    dispatch({
+      type: "CHATLIST_PUSH",
+      data,
+    });
+  };
 }
 
 export default {
   getWeChatList,
-  dispatchChatlist
+  dispatchChatlist,
 };

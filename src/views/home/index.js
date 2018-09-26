@@ -11,11 +11,10 @@ import chatAction from "../slidBar/chatList/action";
 import friendAction from "../slidBar/friendList/action";
 
 const propTypes = {
-  chatList: PropTypes.array.isRequired,
   wechatAccout: PropTypes.object.isRequired,
   getWeChatAccount: PropTypes.func.isRequired,
   dispatchChatlist: PropTypes.func.isRequired,
-  getWeFreindList: PropTypes.func.isRequired,
+  dispatchFreindList: PropTypes.func.isRequired,
 };
 
 class Home extends Component {
@@ -24,139 +23,114 @@ class Home extends Component {
     this.state = {
       fristQrcode: true,
       qrcode: "",
-      contactList: []
-    }
+      contactList: [],
+    };
   }
+
   componentDidMount() {
-    this.checklogin()
+    this.checklogin();
   }
 
   getQrcode() {
     Api.get({
-      url: "/wechat/qrcode"
-    }).then(res => {
+      url: "/wechat/qrcode",
+    }).then((res) => {
       this.setState({
-        qrcode: res
-      })
-    })
+        qrcode: res,
+      });
+    });
   }
-  checklogin() {
-    Api.get({
-      url: "/wechat/checklogin"
-    }).then(res => {
-      if (res.code != 200) {
-        let { fristQrcode } = this.state
-        if (fristQrcode) {
-           this.getQrcode()
-           this.setState({
-             fristQrcode: false
-           })
-        }
-        this.checklogin()
-      } else {
-        this.wechatList()
-      }
-    })
-  }
-
-  wechatList() {
-    Api.get({
-      url: "/wechat/login"
-    }).then(res => {
-      if (res.code == 200) {
-        this.getInit()
-        // this.getFriend()
-      }
-    }, err => {
-      console.log(err)
-    })
-  }
-
-  getInit() {
-    let {
-      getWeChatAccount,
-      dispatchChatlist
-    } = this.props
-    Api.get({
-      url: "/wechat/init"
-    }).then(res => {
-      console.log(res)
-        
-        this.setState({
-          contactList: res.ContactList
-        })
-        
-        getWeChatAccount(res.User)
-        this.getImg(res.User)
-        // dispatchChatlist(res.ContactList)
-        // let arr = [...res.ContactList]
-
-        // let {
-        //   chatList
-        // } = this.props
-        // console.log(arr)
-        // arr.forEach((item, index, array) => {
-        //   console.log(item)
-        //   this.getImgs(item, index, array)
-        // })
-        
-        dispatchChatlist(arr)
-    })
-  }
-  getImgs(parmas, index, array) {
-    Api.get({
-      url: "/wechat/avator",
-      params: {
-        img: parmas.HeadImgUrl,
-        title: parmas.UserName
-      }
-    }).then(res => {
-      let {
-        chatList,
-        dispatchChatlist
-      } = this.props
-      array[index].HeadImgUrl = 'data:image/jpeg;base64,' + res
-      
-    })
-  }
-
-  getFriend() {
-    let {
-      getWeFreindList
-    } = this.props
-    Api.get({
-      url: "/wechat/contact"
-    }).then(res => {
-      console.log(res)
-      getWeFreindList(res)
-    })
-  }
-
 
   getImg(parmas) {
     Api.get({
       url: "/wechat/avator",
       params: {
         img: parmas.HeadImgUrl,
-        title: parmas.UserName
-      }
-    }).then(res => {
-      let {
-        wechatAccout, getWeChatAccount
-      } = this.props
-      let Obj = Object.assign({}, wechatAccout)
-      Obj.HeadImgUrl = 'data:image/jpeg;base64,' + res
-      getWeChatAccount(Object.assign({}, Obj))
-    })
+        title: parmas.UserName,
+      },
+    }).then((res) => {
+      const { wechatAccout, getWeChatAccount } = this.props;
+      const Obj = Object.assign({}, wechatAccout);
+      Obj.HeadImgUrl = `data:image/jpeg;base64, ${res}`;
+      getWeChatAccount(Object.assign({}, Obj));
+    });
   }
 
+  getFriend() {
+    const { dispatchFreindList } = this.props;
+    Api.get({
+      url: "/wechat/contact",
+    }).then((res) => {
+      dispatchFreindList(res);
+    });
+  }
+
+  // getImgs(parmas, index, array) {
+  //   Api.get({
+  //     url: "/wechat/avator",
+  //     params: {
+  //       img: parmas.HeadImgUrl,
+  //       title: parmas.UserName,
+  //     },
+  //   }).then((res) => {
+  //     const { chatList, dispatchChatlist } = this.props;
+  //     array[index].HeadImgUrl = 'data:image/jpeg;base64,' + res
+      
+  //   })
+  // }
+  getInit() {
+    const { getWeChatAccount, dispatchChatlist } = this.props;
+    Api.get({
+      url: "/wechat/init",
+    }).then((res) => {
+      this.setState({
+        contactList: res.ContactList,
+      });
+      this.getFriend();
+      dispatchChatlist(res.ContactList);
+      getWeChatAccount(res.User);
+      this.getImg(res.User);
+    });
+  }
+
+  wechatList() {
+    Api.get({
+      url: "/wechat/login",
+    }).then((res) => {
+      if (res.code === 200) {
+        this.getInit();
+        // this.getFriend()
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  checklogin() {
+    Api.get({
+      url: "/wechat/checklogin",
+    }).then((res) => {
+      if (res.code !== 200) {
+        const { fristQrcode } = this.state;
+        if (fristQrcode) {
+          this.getQrcode();
+          this.setState({
+            fristQrcode: false,
+          });
+        }
+        this.checklogin();
+      } else {
+        this.wechatList();
+      }
+    });
+  }
 
   render() {
     const { wechatAccout } = this.props;
     const { qrcode, contactList } = this.state;
     return (
       <div id="weChat">
-        { wechatAccout.Uin ? <Chat contactList={contactList} /> : <User qrcode={qrcode}/> }
+        { wechatAccout.Uin ? <Chat contactList={contactList} /> : <User qrcode={qrcode} /> }
       </div>
     );
   }
@@ -164,13 +138,14 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
   wechatAccout: state.home.wechatAccout,
-  chatList: state.chatList.chatList,
+  // chatList: state.chatList.chatList,
 });
 
 const mapDispatchToProps = {
   getWeChatAccount: action.getWeChatAccount,
   dispatchChatlist: chatAction.dispatchChatlist,
-  getWeFreindList: friendAction.getWeFreindList,
+  dispatchFreindList: friendAction.dispatchFreindList,
+  // getWeChatList: chatAction.dispatchChatlist,
 };
 
 Home.propTypes = propTypes;
