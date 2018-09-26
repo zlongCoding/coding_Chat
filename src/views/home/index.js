@@ -1,30 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./style.scss";
-import User from "../user";
-import Chat from "../chat";
 import PropTypes from "prop-types";
 import Api from "utils/api";
-import action from "./action"
-import chatAction from "../slidBar/chatList/action"
-import friendAction from "../slidBar/friendList/action"
+import User from "../user";
+import Chat from "../chat";
 
+import action from "./action";
+import chatAction from "../slidBar/chatList/action";
+import friendAction from "../slidBar/friendList/action";
 
 const propTypes = {
   chatList: PropTypes.array.isRequired,
   wechatAccout: PropTypes.object.isRequired,
   getWeChatAccount: PropTypes.func.isRequired,
   dispatchChatlist: PropTypes.func.isRequired,
-  getWeFreindList: PropTypes.func.isRequired
+  getWeFreindList: PropTypes.func.isRequired,
 };
 
 class Home extends Component {
-  constructor(props){
-    super(props)
-    this._isMounted = true;
+  constructor(props) {
+    super(props);
     this.state = {
       fristQrcode: true,
-      qrcode: ""
+      qrcode: "",
+      contactList: []
     }
   }
   componentDidMount() {
@@ -81,18 +81,24 @@ class Home extends Component {
       url: "/wechat/init"
     }).then(res => {
       console.log(res)
+        
+        this.setState({
+          contactList: res.ContactList
+        })
+        
         getWeChatAccount(res.User)
         this.getImg(res.User)
         // dispatchChatlist(res.ContactList)
-        let arr = [...res.ContactList]
+        // let arr = [...res.ContactList]
+
         // let {
         //   chatList
         // } = this.props
-        console.log(arr)
-        arr.forEach((item, index, array) => {
-          console.log(item)
-          this.getImgs(item, index, array)
-        })
+        // console.log(arr)
+        // arr.forEach((item, index, array) => {
+        //   console.log(item)
+        //   this.getImgs(item, index, array)
+        // })
         
         dispatchChatlist(arr)
     })
@@ -146,14 +152,11 @@ class Home extends Component {
 
 
   render() {
-    let { wechatAccout } = this.props
-    let { qrcode } = this.state
-    
+    const { wechatAccout } = this.props;
+    const { qrcode, contactList } = this.state;
     return (
-       <div id="weChat">
-       {
-         wechatAccout.Uin ? <Chat /> : <User qrcode={qrcode}/>
-       }
+      <div id="weChat">
+        { wechatAccout.Uin ? <Chat contactList={contactList} /> : <User qrcode={qrcode}/> }
       </div>
     );
   }
@@ -167,7 +170,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   getWeChatAccount: action.getWeChatAccount,
   dispatchChatlist: chatAction.dispatchChatlist,
-  getWeFreindList: friendAction.getWeFreindList
+  getWeFreindList: friendAction.getWeFreindList,
 };
 
 Home.propTypes = propTypes;
