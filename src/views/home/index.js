@@ -20,10 +20,10 @@ const propTypes = {
 class Home extends Component {
   constructor(props) {
     super(props);
+    console.log(this)
     this.state = {
       fristQrcode: true,
       qrcode: "",
-      contactList: [],
     };
   }
 
@@ -83,9 +83,6 @@ class Home extends Component {
     Api.get({
       url: "/wechat/init",
     }).then((res) => {
-      this.setState({
-        contactList: res.ContactList,
-      });
       this.getFriend();
       dispatchChatlist(res.ContactList);
       getWeChatAccount(res.User);
@@ -127,10 +124,10 @@ class Home extends Component {
 
   render() {
     const { wechatAccout } = this.props;
-    const { qrcode, contactList } = this.state;
+    const { qrcode } = this.state;
     return (
       <div id="weChat">
-        { wechatAccout.Uin ? <Chat contactList={contactList} /> : <User qrcode={qrcode} /> }
+        { !wechatAccout.Uin ? <Chat /> : <User qrcode={qrcode} /> }
       </div>
     );
   }

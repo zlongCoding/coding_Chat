@@ -15,6 +15,7 @@ const propTypes = {
 class ChatList extends Component {
   constructor(props) {
     super(props);
+    
     const { chatList, getWeChatList } = this.props;
     chatList.forEach((value, index) => {
       getWeChatList(value, index);
@@ -28,7 +29,7 @@ class ChatList extends Component {
   }
 
   componentDidMount() {
-    console.log(1111111111)
+    // console.log(1111111111)
     // let { chatList } = this.props
     // console.log(chatList)
     // chatList.forEach((item, index) => {
@@ -37,6 +38,7 @@ class ChatList extends Component {
     // })
 
   }
+  
 
   selectChatList(item, index) {
     this.setState({

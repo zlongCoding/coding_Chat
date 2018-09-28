@@ -24,7 +24,8 @@ class SlidBar extends Component {
       selectIndex: 0,
     };
   }
-  
+
+ 
   renderList() {
     const { selectIndex } = this.state;
     switch (selectIndex) {
